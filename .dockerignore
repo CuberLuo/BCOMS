@@ -1,0 +1,15 @@
+# Git
+.git/
+.gitignore
+
+# Output
+output/
+
+# IDE
+.vscode/
+.idea/
+*.Rproj.user/
+
+# OS
+.DS_Store
+Thumbs.db

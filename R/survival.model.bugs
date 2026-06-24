@@ -1,0 +1,21 @@
+model{
+  beta ~ dunif(log(0.1), log(1))
+  for (d in 1:ndose) {
+    alpha[d] ~ dgamma(1 / 9, 1 / 9)
+    gamma[d] ~ dgamma(1 / 9, 1 / 36)
+    pE[d] ~ dbeta(0.3, 0.7)
+  }
+  for (i in 1:n.pat) {
+    alpha.hazard[i] <- alpha[dose.data[i]] * exp(beta * immune.data[i])
+    
+    d.bern[i] <- pow(pE[dose.data[i]], immune.data[i]) * pow((1 - pE[dose.data[i]]), (1 - immune.data[i]))
+    d.lomax[i] <- alpha.hazard[i] * pow(gamma[dose.data[i]], alpha.hazard[i]) /
+      pow((time[i] + gamma[dose.data[i]]), (alpha.hazard[i] + 1))
+    s.lomax[i] <- pow((gamma[dose.data[i]] / (time[i] + gamma[dose.data[i]])), alpha.hazard[i])
+    
+    loglik[i] <- log(d.bern[i]) + status[i] * log(d.lomax[i]) + (1 - status[i]) * log(s.lomax[i])
+    
+    # zeros trick
+    zeros[i] ~ dpois(-loglik[i]+999)
+  }
+}

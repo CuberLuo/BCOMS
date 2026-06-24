@@ -1,0 +1,3 @@
+indent_by: 2
+pipe_with_newline: true
+space_before_brace: true

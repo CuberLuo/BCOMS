@@ -1,0 +1,8 @@
+services:
+  bcoms:
+    build: .
+    image: bcoms:latest
+    working_dir: /app/R
+    command: Rscript simulate.main.R
+    volumes:
+      - ./output:/app/output

@@ -1,0 +1,15 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+**/*output*/
+.positai
+
+renv/cache/
+renv/library/
+renv/source/
+renv/staging/
+*.log
+.vscode/
+node_modules/
+app/
